@@ -1,7 +1,7 @@
 package fr.bendev.seatgeekapp.framework.di
 
 import android.app.Application
-import fr.bendev.seatgeekapp.framework.network.SampleNetwork
+import fr.bendev.seatgeekapp.framework.network.SeatGeekNetwork
 
 /**
  * Injector is here to have instances of many component inside the app. We can use it for field
@@ -18,7 +18,7 @@ object Injector {
     /**
      * Network
      */
-    private lateinit var network: SampleNetwork
+    private lateinit var network: SeatGeekNetwork
 
     /**
      * DAOs
@@ -59,9 +59,8 @@ object Injector {
     /**
      * Based on Builder pattern
      */
-    fun initNetwork(baseUrl: String) = apply {
-        network = SampleNetwork.Builder()
-            .setBaseUrl(baseUrl)
+    fun initNetwork(builder: SeatGeekNetwork.Builder.() -> SeatGeekNetwork.Builder) = apply {
+        network = builder(SeatGeekNetwork.Builder())
             .build()
     }
 

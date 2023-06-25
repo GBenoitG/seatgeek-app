@@ -1,6 +1,7 @@
 package fr.bendev.seatgeekapp.framework.network
 
 import com.google.gson.GsonBuilder
+import fr.bendev.seatgeekapp.framework.network.interceptors.AuthInterceptor
 import fr.bendev.seatgeekapp.framework.utils.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -13,7 +14,11 @@ import java.util.concurrent.TimeUnit
  * Uses the Retrofit library
  * FILE NAMING CONVENTION: {OBJECT}Network
  */
-class SampleNetwork private constructor(private val baseUrl: String) {
+class SeatGeekNetwork private constructor(
+    private val baseUrl: String,
+    private val clientId: String,
+    private val clientSecret: String
+) {
 
     /**
      * Instance of a service creates with Retrofit instance
@@ -32,7 +37,7 @@ class SampleNetwork private constructor(private val baseUrl: String) {
         OkHttpClient.Builder()
             .writeTimeout(Constants.NETWORK_TIMEOUT_IN_S, TimeUnit.SECONDS)
             .readTimeout(Constants.NETWORK_TIMEOUT_IN_S, TimeUnit.SECONDS)
-            //.addNetworkInterceptor(/*SampleInterceptor()*/)
+            .addNetworkInterceptor(AuthInterceptor(clientId, clientSecret))
             //.authenticator(/*RefreshTokenAuthenticator()*/)
             .build()
     }
@@ -63,22 +68,31 @@ class SampleNetwork private constructor(private val baseUrl: String) {
      */
     class Builder {
         private var baseUrl: String? = null
+        private var clientId: String? = null
+        private var clientSecret: String? = null
 
         fun setBaseUrl(baseUrl: String) = apply {
             this@Builder.baseUrl = baseUrl
         }
 
+        fun setApiCredentials(clientId: String, clientSecret: String) = apply {
+            this@Builder.clientId = clientId
+            this@Builder.clientSecret = clientSecret
+        }
+
         /**
          * Build function must tests all mandatory variables throw and exception then return an
-         * instance of SampleNetwork
+         * instance of SeatGeekNetwork
          *
          * @throws UninitializedPropertyAccessException
-         * @return SampleNetwork
+         * @return SeatGeekNetwork
          */
-        fun build(): SampleNetwork {
+        fun build(): SeatGeekNetwork {
             baseUrl ?: throw UninitializedPropertyAccessException("Error: baseUrl cannot be null")
+            clientId ?: throw UninitializedPropertyAccessException("Error: clientId cannot be null")
+            clientSecret ?: throw UninitializedPropertyAccessException("Error: clientSecret cannot be null")
 
-            return SampleNetwork(baseUrl!!)
+            return SeatGeekNetwork(baseUrl!!, clientId!!, clientSecret!!)
         }
 
     }

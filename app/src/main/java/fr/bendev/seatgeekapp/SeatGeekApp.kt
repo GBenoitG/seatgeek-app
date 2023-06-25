@@ -13,7 +13,15 @@ class SeatGeekApp: Application() {
         Timber.plant(Timber.DebugTree())
 
         Injector
-            .initNetwork(EnvironmentConstants.baseUrl)
+            .initNetwork {
+                // set up the base url of network
+                setBaseUrl(baseUrl = EnvironmentConstants.baseUrl)
+                // set up credentials of network
+                setApiCredentials(
+                    clientId = EnvironmentConstants.clientId,
+                    clientSecret = EnvironmentConstants.clientSecret
+                )
+            }
             .build(this)
 
     }
