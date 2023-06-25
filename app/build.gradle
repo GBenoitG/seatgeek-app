@@ -1,0 +1,79 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+// This file is used to factorize all configurations of the project
+apply from: "${rootDir}/configuration.gradle"
+
+// This file is used to factorize all dependencies of the project
+apply from: "$rootDir/dependencies.gradle"
+
+// This file is used to separate flavors declarations
+apply from: "$rootDir/flavors.gradle"
+
+android {
+    namespace config.applicationId
+
+    compileSdk config.currentSdk
+    buildToolsVersion config.buildToolsVersion
+
+    defaultConfig {
+        applicationId config.applicationId
+        minSdk config.minSdkVersion
+        targetSdk config.currentSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner config.testInstrumentationRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility config.javaVersion
+        targetCompatibility config.javaVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = config.jvmTarget
+    }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.kotlinComposeCompiler
+    }
+}
+
+dependencies {
+
+    // Lifecycle
+    implementation lifecycle.extensions
+    implementation lifecycle.viewmodel
+    implementation lifecycle.runtimeCompose
+
+    // Compose
+    implementation platform(compose.bom)
+    implementation compose.runtime
+    implementation compose.ui
+    implementation compose.foundation
+    implementation compose.foundationLayout
+    implementation compose.material
+    implementation compose.material3
+    implementation compose.runtimeLivedata
+    implementation compose.navigation
+    implementation compose.activity
+    implementation compose.constraint
+    debugImplementation compose.uiTooling
+
+    implementation project(path: ':framework')
+}

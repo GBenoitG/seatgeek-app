@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+// This file is used to factorize all configuration of the project
+apply from: "${rootDir}/configuration.gradle"
+
+// This file is used to factorize all dependencies of the project
+apply from: "${rootDir}/dependencies.gradle"
+
+android {
+    namespace config.applicationId
+
+    compileSdk config.currentSdk
+
+    defaultConfig {
+        minSdk config.minSdkVersion
+        targetSdk config.currentSdk
+
+        testInstrumentationRunner config.testInstrumentationRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility config.javaVersion
+        targetCompatibility config.javaVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = config.jvmTarget
+    }
+}
+
+dependencies {
+
+    // Logger
+    api timber
+
+    // Tests
+    api test.junit
+
+    api project(path: ':domain')
+}

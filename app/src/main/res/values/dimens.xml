@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common dimens -->
+    <!--
+        These common size are based on Material measurement: https://material.io/design/layout/understanding-layout.html#material-measurements
+    -->
+    <dimen name="size_xsmall">4dp</dimen>
+    <dimen name="size_small">8dp</dimen>
+    <dimen name="size_medium">16dp</dimen>
+    <dimen name="size_large">24dp</dimen>
+    <dimen name="size_xlarge">32dp</dimen>
+    <dimen name="size_xxlarge">40dp</dimen>
+    <dimen name="size_xxxlarge">48dp</dimen>
+
+
+    <!-- Margin / Padding sizes -->
+    <!--
+        Customisation is possible when padding does not match the designer rules
+    -->
+    <dimen name="margin_padding_fragment">@dimen/size_medium</dimen>
+
+    <dimen name="icone_size">@dimen/size_large</dimen>
+
+</resources>
