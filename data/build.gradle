@@ -41,10 +41,10 @@ android {
 dependencies {
 
     // Logger
-    api(timber)
+    api timber
 
     // Tests
-    api(test.junit)
+    api test.junit
 
-    api project (path: ':domain')
+    api project(path: ':domain')
 }

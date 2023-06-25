@@ -41,17 +41,17 @@ android {
 dependencies {
 
     // Jetpack
-    api(jetpack.core)
+    api jetpack.core
 
     //    Retrofit & Gson
-    api(network.retrofit)
-    api(network.gson)
+    api network.retrofit
+    api network.gson
 
     // OkHttp
-    api(network.okhttp)
+    api network.okhttp
 
     // Test
-    testApi(test.junit)
+    testApi test.junit
     api project(path: ':data')
 
 }

@@ -74,6 +74,6 @@ dependencies {
     implementation compose.activity
     implementation compose.constraint
     debugImplementation compose.uiTooling
-    
+
     implementation project(path: ':framework')
 }
