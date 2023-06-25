@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+// This file is used to factorize all configuration of the project
+apply from: "${rootDir}/configuration.gradle"
+
+// This file is used to factorize all dependencies of the project
+apply from: "${rootDir}/dependencies.gradle"
+
+java {
+    sourceCompatibility = config.javaVersion
+    targetCompatibility = config.javaVersion
+}
+
+dependencies {
+
+    // Kotlin
+    api(kotlin.core)
+    api(kotlin.coroutines)
+
+}

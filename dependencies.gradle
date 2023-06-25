@@ -1,0 +1,76 @@
+ext {
+
+    versions = [
+            // These variables are located in gradle.properties
+            gradlePlugin         : "${gradlePluginVersion}",
+            kotlin               : "${kotlinVersion}",
+            coroutines           : "1.6.4",
+            timber               : "5.0.1",
+            jetpackCore          : "1.10.0",
+            retrofit             : "2.9.0",
+            okhttp               : "4.10.0",
+            lifecycle            : "2.6.1",
+            dependencyChecker    : "0.46.0",
+            room                 : "2.5.1",
+
+            // Compose
+            composeBom           : "2023.04.01",
+            activity             : "1.7.1",
+            navigation           : "2.5.3",
+            viewModelCompose     : "2.5.1",
+            kotlinComposeCompiler: "1.4.6",
+            constraint           : "1.0.1"
+    ]
+
+    // Kotlin
+    kotlin = [
+            core      : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+            coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
+    ]
+
+    // Timber
+    timber = "com.jakewharton.timber:timber:${versions.timber}"
+
+    // Jetpack
+    jetpack = [
+            core: "androidx.core:core-ktx:${versions.jetpackCore}",
+    ]
+
+    lifecycle = [
+            extensions    : "androidx.lifecycle:lifecycle-extensions:2.2.0",
+            viewmodel     : "androidx.lifecycle:lifecycle-viewmodel-compose:${versions.lifecycle}",
+            runtimeCompose: "androidx.lifecycle:lifecycle-runtime-compose:${versions.lifecycle}"
+    ]
+
+    // Retrofit
+    network = [
+            retrofit: "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+            gson    : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+            okhttp  : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+    ]
+
+    test = [
+            junit: "junit:junit:4.13.2",
+    ]
+
+    compose = [
+            // https://developer.android.com/jetpack/compose/bom/bom-mapping
+            bom             : "androidx.compose:compose-bom:${versions.composeBom}",
+            runtime         : "androidx.compose.runtime:runtime",
+            ui              : "androidx.compose.ui:ui",
+            foundation      : "androidx.compose.foundation:foundation",
+            foundationLayout: "androidx.compose.foundation:foundation-layout",
+            material        : "androidx.compose.material:material",
+            material3       : "androidx.compose.material3:material3",
+            runtimeLivedata : "androidx.compose.runtime:runtime-livedata",
+            uiTooling       : "androidx.compose.ui:ui-tooling",
+
+            // Without BOM
+            navigation      : "androidx.navigation:navigation-compose:${versions.navigation}",
+            activity        : "androidx.activity:activity-compose:${versions.activity}",
+            constraint      : "androidx.constraintlayout:constraintlayout-compose:${versions.constraint}"
+    ]
+
+    dependencyChecker = "com.github.ben-manes:gradle-versions-plugin:${versions.dependencyChecker}"
+
+}

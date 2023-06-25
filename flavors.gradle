@@ -1,0 +1,46 @@
+android {
+
+    def appName = "${applicationName}"
+    /**
+     * FLAVORS
+     * */
+    flavorDimensions "env"
+    productFlavors {
+
+        dev {
+            dimension "env"
+            matchingFallbacks = ["Dev"]
+            resValue 'string', 'app_name', "${appName}"
+
+            /**
+             * Environment Variable
+             */
+            buildConfigField 'String', 'BASE_URL', "\"api.seatgeek.com/2\""
+            buildConfigField 'String', 'CLIENT_ID', getLocalProperty('network.clientId', '""')
+            buildConfigField 'String', 'CLIENT_SECRET', getLocalProperty('network.clientSecret', '""')
+        }
+
+        /**
+         *
+         * Uncomment when a local environment is necessary
+
+            local {
+                dimension "env"
+                matchingFallbacks = ["Local"]
+                applicationIdSuffix ".local"
+                versionNameSuffix "-local"
+                def fullName = "${appName}${versionNameSuffix}"
+                resValue 'string', 'app_name', "${fullName}"
+                buildConfigField 'String', 'APP_NAME', "\"${fullName}\""
+
+                /**
+                 * Environment Variable
+                 *\/
+                // Change baseUrl value in local.properties file (create if needed)
+                buildConfigField 'String', 'BASE_URL', getLocalProperty('project.endpoint', '""')
+            }
+        */
+
+    }
+
+}

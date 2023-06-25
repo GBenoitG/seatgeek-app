@@ -1,0 +1,13 @@
+ext {
+
+    config = [
+            applicationId : "${applicationId}",
+            minSdkVersion : 24, // Android 7.0
+            currentSdk : 33, // Android 13
+            buildToolsVersion : "33.0.0",
+            testInstrumentationRunner : "androidx.test.runner.AndroidJUnitRunner",
+            javaVersion : JavaVersion.VERSION_17,
+            jvmTarget : JavaVersion.VERSION_17.toString(),
+    ]
+
+}
