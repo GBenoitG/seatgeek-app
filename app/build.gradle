@@ -56,7 +56,7 @@ android {
 
 dependencies {
 
-    // Livedata
+    // Lifecycle
     implementation lifecycle.extensions
     implementation lifecycle.viewmodel
     implementation lifecycle.runtimeCompose

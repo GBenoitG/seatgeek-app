@@ -19,7 +19,6 @@ android {
         targetSdk config.currentSdk
 
         testInstrumentationRunner config.testInstrumentationRunner
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
