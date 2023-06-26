@@ -1,4 +1,4 @@
-package com.example.compose
+package fr.bendev.seatgeekapp.theme
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFFB5261B)

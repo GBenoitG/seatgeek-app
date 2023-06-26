@@ -1,2 +1,7 @@
 <resources>
+    <string name="events_page_title">Tout les évènements</string>
+
+    <!-- Date Formats -->
+    <string name="date_format_day_month_year">dd MMMM yyyy</string>
+
 </resources>

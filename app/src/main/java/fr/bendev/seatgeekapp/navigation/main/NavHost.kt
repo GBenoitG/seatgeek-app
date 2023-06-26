@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import fr.bendev.seatgeekapp.pages.main.MainScreen
+import fr.bendev.seatgeekapp.pages.events.EventsScreen
 
 @Composable
 fun MainNavHost(
@@ -17,11 +17,11 @@ fun MainNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Main.route,
+        startDestination = Events.route,
         modifier.background(color = MaterialTheme.colorScheme.background)
     ) {
-        composable(Main.route) {
-            MainScreen(title = stringResource(id = Main.pageTitleRes))
+        composable(route = Events.route) {
+            EventsScreen(title = stringResource(id = Events.pageTitleRes))
         }
     }
 }
