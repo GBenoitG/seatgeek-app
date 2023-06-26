@@ -7,7 +7,7 @@ object EnvironmentConstants {
     /**
      * baseUrl constant is used to PRODUCTION ENVIRONMENT
      */
-    const val baseUrl: String = BuildConfig.BASE_URL
+    const val baseUrl: String = "https://${BuildConfig.BASE_URL}/"
 
     /**
      * API credentials as environment variable

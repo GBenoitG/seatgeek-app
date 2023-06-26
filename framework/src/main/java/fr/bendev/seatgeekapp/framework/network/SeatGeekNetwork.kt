@@ -2,6 +2,7 @@ package fr.bendev.seatgeekapp.framework.network
 
 import com.google.gson.GsonBuilder
 import fr.bendev.seatgeekapp.framework.network.interceptors.AuthInterceptor
+import fr.bendev.seatgeekapp.framework.network.services.EventsService
 import fr.bendev.seatgeekapp.framework.utils.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -23,12 +24,11 @@ class SeatGeekNetwork private constructor(
     /**
      * Instance of a service creates with Retrofit instance
      * NAMING CONVENTION: val {object}Service: {Object}Service by lazy { retrofit.create({Object}Service::class.java) }
-     *
-     *
-        val sampleService: SampleService by lazy {
-            retrofit.create(SampleService::class.java)
-        }
-    */
+     */
+    val eventsService: EventsService by lazy {
+        retrofit.create(EventsService::class.java)
+    }
+
 
     /**
      * Instance of httpClient
@@ -47,6 +47,7 @@ class SeatGeekNetwork private constructor(
      */
     private val gson by lazy {
         GsonBuilder()
+            .setDateFormat(Constants.NETWORK_DATETIME_FORMAT)
             .setPrettyPrinting()
             .setLenient()
             .create()
