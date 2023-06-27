@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventsRepository {
 
+    /**
+     * Load from API a page of events list and return a flow of all events stored in local/cache storage
+     */
     fun getEvents(page: Int = 1): Flow<ViewResult<List<Event>>>
 
 }
