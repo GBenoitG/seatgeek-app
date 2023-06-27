@@ -8,13 +8,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
@@ -38,10 +41,36 @@ fun EventsScreen(
             )
         }
     ) {
+
+        val scrollState = rememberLazyListState()
+
+
+        val isAtBottom by remember {
+            derivedStateOf {
+                val layoutInfo = scrollState.layoutInfo
+                val visibleItemsInfo = layoutInfo.visibleItemsInfo
+                if (layoutInfo.totalItemsCount <= 2) {
+                    false
+                } else {
+                    val lastVisibleItem = visibleItemsInfo.last()
+                    val viewportHeight =
+                        layoutInfo.viewportEndOffset + layoutInfo.viewportStartOffset
+
+                    (lastVisibleItem.index + 1 == layoutInfo.totalItemsCount &&
+                            lastVisibleItem.offset + lastVisibleItem.size <= viewportHeight)
+                }
+            }
+        }
+
+        if (isAtBottom) {
+            viewModel.setNextPage()
+        }
+
         LazyColumn(
             Modifier
                 .padding(it)
-                .padding(dimensionResource(id = R.dimen.size_medium))
+                .padding(dimensionResource(id = R.dimen.size_medium)),
+            scrollState
         ) {
             item {
                 Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.size_small)))

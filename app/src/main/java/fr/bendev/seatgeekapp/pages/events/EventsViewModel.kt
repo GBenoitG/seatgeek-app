@@ -4,9 +4,11 @@ import androidx.lifecycle.viewModelScope
 import fr.bendev.seatgeekapp.base.BaseViewModel
 import fr.bendev.seatgeekapp.domain.repository.EventsRepository
 import fr.bendev.seatgeekapp.framework.di.Injector
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -17,9 +19,16 @@ class EventsViewModel(
     private val _uiState = MutableStateFlow(EventsUIState())
     val uiState: StateFlow<EventsUIState> = _uiState.asStateFlow()
 
+    private val _pageInfo = MutableStateFlow(PageInfo())
+
+    @OptIn(FlowPreview::class)
+    private val eventsFlow = _pageInfo.flatMapMerge { pageInfo ->
+        eventsRepository.getEvents(pageInfo.currentPage)
+    }
+
     init {
         viewModelScope.launch {
-            eventsRepository.fetchEvents().collect { viewResult ->
+            eventsFlow.collect { viewResult ->
                 _isLoading.update { false }
                 _modelError.update { null }
                 viewResult.handle(
@@ -37,4 +46,19 @@ class EventsViewModel(
         }
     }
 
+    fun setNextPage() {
+        _pageInfo.update { it.copy(currentPage = it.nextPage) }
+    }
+
+}
+
+private data class PageInfo(
+    val currentPage: Int = 1,
+) {
+
+    val nextPage: Int
+        get() = currentPage + 1
+
+    val previousPage: Int
+        get() = Integer.max(currentPage - 1, 1)
 }
