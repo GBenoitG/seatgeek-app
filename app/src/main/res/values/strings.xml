@@ -7,6 +7,9 @@
     <!-- Events list Section -->
     <string name="events_page_title">Tous les évènements</string>
 
+    <!-- Event details Section -->
+    <string name="event_details_page_title">Détails</string>
+
     <!-- Date Formats -->
     <string name="date_format_day_month_year_time">dd MMMM yyyy à HH\'h\'mm</string>
 

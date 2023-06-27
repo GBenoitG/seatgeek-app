@@ -34,6 +34,7 @@ import timber.log.Timber
 @Composable
 fun EventsScreen(
     title: String,
+    onEventClick: (id: Long, name: String) -> Unit,
     viewModel: EventsViewModel = viewModel()
 ) {
 
@@ -52,6 +53,7 @@ fun EventsScreen(
             onNextPage = {
                 viewModel.setNextPage()
             },
+            onEventClick = onEventClick,
             isLoading = isLoading,
             modifier = Modifier
                 .padding(it)
@@ -63,6 +65,7 @@ fun EventsScreen(
 private fun Content(
     uiState: EventsUIState,
     onNextPage: () -> Unit,
+    onEventClick: (id: Long, name: String) -> Unit,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false
 ) {
@@ -93,6 +96,7 @@ private fun Content(
         EventsList(
             uiState.events,
             scrollState,
+            onEventClick,
             Modifier
                 .padding(horizontal = dimensionResource(id = R.dimen.size_medium))
         )
@@ -107,6 +111,7 @@ private fun Content(
 private fun EventsList(
     events: List<Event>,
     scrollState: LazyListState,
+    onEventClick: (id: Long, name: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -124,6 +129,9 @@ private fun EventsList(
                 price = item.stats.averagePrice,
                 country = item.location.country,
                 city = item.location.city,
+                onClick = {
+                    onEventClick(item.id, item.title)
+                },
                 modifier = Modifier
                     .wrapContentHeight()
                     .fillMaxWidth()

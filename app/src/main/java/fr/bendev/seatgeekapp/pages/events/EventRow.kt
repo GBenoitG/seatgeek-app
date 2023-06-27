@@ -1,5 +1,6 @@
 package fr.bendev.seatgeekapp.pages.events
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +30,7 @@ fun EventRow(
     price: Float?,
     country: String,
     city: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -41,6 +43,9 @@ fun EventRow(
         Column(
             Modifier
                 .fillMaxWidth()
+                .clickable {
+                    onClick()
+                }
                 .padding(dimensionResource(id = R.dimen.size_medium))
         ) {
             Text(text = name, style = MaterialTheme.typography.titleMedium)
@@ -68,6 +73,12 @@ fun EventRow(
 @Composable
 private fun DefaultPreview() {
     SeatGeekTheme {
-        EventRow(name = "Event", date = Date(), price = 12.3f, country = "France", city = "Lyon")
+        EventRow(
+            name = "Event",
+            date = Date(),
+            price = 12.3f,
+            country = "France",
+            city = "Lyon",
+            {})
     }
 }
