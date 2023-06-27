@@ -1,8 +1,6 @@
 package fr.bendev.seatgeekapp.navigation.main
 
 import androidx.annotation.StringRes
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.painter.Painter
 import fr.bendev.seatgeekapp.R
 
 interface Destinations {
@@ -15,9 +13,9 @@ interface DestinationsWithArgs : Destinations {
     fun buildRouteWithArg(vararg args: String): String
 }
 
-object Main : Destinations {
+object Events : Destinations {
     override val route: String
-        get() = "main"
+        get() = "events"
     override val pageTitleRes: Int
-        get() = R.string.app_name
+        get() = R.string.events_page_title
 }

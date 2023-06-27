@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.FragmentActivity
-import com.example.compose.SeatGeekTheme
+import fr.bendev.seatgeekapp.theme.SeatGeekTheme
 
 abstract class BaseActivity : FragmentActivity() {
 

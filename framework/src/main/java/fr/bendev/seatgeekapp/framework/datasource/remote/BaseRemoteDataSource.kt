@@ -1,4 +1,4 @@
-package fr.bendev.seatgeekapp.framework.network.datasource
+package fr.bendev.seatgeekapp.framework.datasource.remote
 
 import fr.bendev.seatgeekapp.domain.common.RemoteResult
 import fr.bendev.seatgeekapp.domain.common.error.ErrorType

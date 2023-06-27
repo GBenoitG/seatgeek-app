@@ -10,14 +10,26 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import timber.log.Timber
 
+/**
+ * performGetOperation return a Flow to observe local data then fetch and save data into the local
+ * cache (or into a DB)
+ *
+ * params:
+ *  - loadData: lambda to get the Flow to observe
+ *  - shouldShowLoading: given loaded data into a lambda should return a Boolean to show or not the loading state
+ *  - networkCall: suspend lambda to call the the API
+ *  - saveApiData: suspend lambda to call the saving mechanisms
+ *
+ *  Can emit (for flow mechanism) or throw a PerformOperationException
+ */
 fun <T, A> performGetOperation(
     loadData: () -> Flow<T>,
-    isDataEmpty: (T) -> Boolean,
+    shouldShowLoading: (T) -> Boolean,
     networkCall: suspend () -> RemoteResult<A>,
     saveApiData: suspend (A?) -> Unit
 ): Flow<ViewResult<T>> = merge(
     loadData().map {
-        if (isDataEmpty(it)) {
+        if (shouldShowLoading(it)) {
             ViewResult.Loading
         } else {
             Timber.d("Get data from Database")
@@ -40,6 +52,16 @@ fun <T, A> performGetOperation(
     }
 )
 
+/**
+ * performFetchOperation return a Flow to observe the fetched API data and save it into the local
+ * cache (or into a DB)
+ *
+ * params:
+ *  - networkCall: suspend lambda to call the the API
+ *  - saveApiData: suspend lambda to call the saving mechanisms
+ *
+ *  Can emit (for flow mechanism) or throw a PerformOperationException
+ */
 fun <T> performFetchOperation(
     networkCall: suspend () -> RemoteResult<T>,
     saveApiData: suspend (T?) -> Unit

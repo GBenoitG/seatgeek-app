@@ -1,7 +1,14 @@
 package fr.bendev.seatgeekapp.framework.di
 
 import android.app.Application
+import fr.bendev.seatgeekapp.data.datasource.local.EventsLocalDataSource
+import fr.bendev.seatgeekapp.data.datasource.remote.EventsRemoteDataSource
+import fr.bendev.seatgeekapp.data.repository.EventsRepositoryImpl
+import fr.bendev.seatgeekapp.domain.repository.EventsRepository
+import fr.bendev.seatgeekapp.framework.datasource.local.EventsLocalDataSourceImpl
 import fr.bendev.seatgeekapp.framework.network.SeatGeekNetwork
+import fr.bendev.seatgeekapp.framework.datasource.remote.EventsRemoteDataSourceImpl
+import fr.bendev.seatgeekapp.framework.network.services.EventsService
 
 /**
  * Injector is here to have instances of many component inside the app. We can use it for field
@@ -21,6 +28,13 @@ object Injector {
     private lateinit var network: SeatGeekNetwork
 
     /**
+     * Services
+     */
+
+    private val eventsService: EventsService
+        get() = network.eventsService
+
+    /**
      * DAOs
      * DESCRIPTION: List of instance of DAOs with lazy loading.
      * USAGE: It will depends on which Database system will be used: Realm or Rooms.
@@ -34,7 +48,12 @@ object Injector {
      * DESCRIPTION: List of instance of data source with lazy loading.
      * NAMING CONVENTION: val {object}DataSource: {Object}RemoteDataSource by lazy { {Class}DataSource }
      */
-
+    private val eventsRemoteDataSource: EventsRemoteDataSource by lazy {
+        EventsRemoteDataSourceImpl(eventsService)
+    }
+    private val eventsLocalDataSource: EventsLocalDataSource by lazy {
+        EventsLocalDataSourceImpl()
+    }
 
 
     /**
@@ -42,6 +61,9 @@ object Injector {
      * DESCRIPTION: List of instance of repositories with lazy loading.
      * NAMING CONVENTION: val {object}Repository: {Object}Repository by lazy { {Object}DataSourceImpl }
     */
+    val eventsRepository: EventsRepository by lazy {
+        EventsRepositoryImpl(eventsRemoteDataSource, eventsLocalDataSource)
+    }
 
 
      /**/
