@@ -2,3 +2,4 @@
 
 ## 0.0.1
 * Init project
+* Create list of events from API
