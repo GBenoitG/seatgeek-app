@@ -1,11 +1,13 @@
 package fr.bendev.seatgeekapp.framework.di
 
 import android.app.Application
+import fr.bendev.seatgeekapp.data.datasource.local.EventsLocalDataSource
 import fr.bendev.seatgeekapp.data.datasource.remote.EventsRemoteDataSource
 import fr.bendev.seatgeekapp.data.repository.EventsRepositoryImpl
 import fr.bendev.seatgeekapp.domain.repository.EventsRepository
+import fr.bendev.seatgeekapp.framework.datasource.local.EventsLocalDataSourceImpl
 import fr.bendev.seatgeekapp.framework.network.SeatGeekNetwork
-import fr.bendev.seatgeekapp.framework.network.datasource.EventsRemoteDataSourceImpl
+import fr.bendev.seatgeekapp.framework.datasource.remote.EventsRemoteDataSourceImpl
 import fr.bendev.seatgeekapp.framework.network.services.EventsService
 
 /**
@@ -49,6 +51,9 @@ object Injector {
     private val eventsRemoteDataSource: EventsRemoteDataSource by lazy {
         EventsRemoteDataSourceImpl(eventsService)
     }
+    private val eventsLocalDataSource: EventsLocalDataSource by lazy {
+        EventsLocalDataSourceImpl()
+    }
 
 
     /**
@@ -57,7 +62,7 @@ object Injector {
      * NAMING CONVENTION: val {object}Repository: {Object}Repository by lazy { {Object}DataSourceImpl }
     */
     val eventsRepository: EventsRepository by lazy {
-        EventsRepositoryImpl(eventsRemoteDataSource)
+        EventsRepositoryImpl(eventsRemoteDataSource, eventsLocalDataSource)
     }
 
 

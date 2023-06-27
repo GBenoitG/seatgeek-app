@@ -5,6 +5,6 @@ import fr.bendev.seatgeekapp.domain.model.Event
 
 interface EventsRemoteDataSource {
 
-    suspend fun getEvents(page: Int): RemoteResult<List<Event>>
+    suspend fun getEvents(page: Int): RemoteResult<Pair<Int, List<Event>>>
 
 }

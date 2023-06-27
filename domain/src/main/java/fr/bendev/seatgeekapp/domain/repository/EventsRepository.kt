@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface EventsRepository {
 
-    fun fetchEvents(page: Int = 1): Flow<ViewResult<List<Event>>>
+    fun getEvents(page: Int = 1): Flow<ViewResult<List<Event>>>
 
 }

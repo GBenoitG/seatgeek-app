@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ApiVenue(
     @SerializedName("address")
-    val address: String,
+    val address: String?,
     @SerializedName("country")
     val country: String,
     @SerializedName("city")
