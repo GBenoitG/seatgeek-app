@@ -1,7 +1,13 @@
 <resources>
+    
+    <!-- Common Section -->
+    <string name="common_amount_money">%,.2f€</string>
+    <string name="common_amount_free">Gratuit</string>
+
+    <!-- Events list Section -->
     <string name="events_page_title">Tout les évènements</string>
 
     <!-- Date Formats -->
-    <string name="date_format_day_month_year">dd MMMM yyyy</string>
+    <string name="date_format_day_month_year_time">dd MMMM yyyy à HH\'h\'mm</string>
 
 </resources>

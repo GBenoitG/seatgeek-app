@@ -20,7 +20,7 @@ class EventsRepositoryImpl(
     override fun getEvents(page: Int): Flow<ViewResult<List<Event>>> =
         performGetOperation(
             loadData = { eventsLocalDataSource.loadEvents() },
-            isDataEmpty = { it.isEmpty() },
+            shouldShowLoading = { it.isEmpty() },
             networkCall = { eventsRemoteDataSource.getEvents(page) },
             saveApiData = { it?.let { eventsLocalDataSource.savePage(it.first, it.second) } }
         ).flowOn(dispatcher)

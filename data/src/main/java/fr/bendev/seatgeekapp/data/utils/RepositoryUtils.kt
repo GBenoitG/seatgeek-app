@@ -12,12 +12,12 @@ import timber.log.Timber
 
 fun <T, A> performGetOperation(
     loadData: () -> Flow<T>,
-    isDataEmpty: (T) -> Boolean,
+    shouldShowLoading: (T) -> Boolean,
     networkCall: suspend () -> RemoteResult<A>,
     saveApiData: suspend (A?) -> Unit
 ): Flow<ViewResult<T>> = merge(
     loadData().map {
-        if (isDataEmpty(it)) {
+        if (shouldShowLoading(it)) {
             ViewResult.Loading
         } else {
             Timber.d("Get data from Database")

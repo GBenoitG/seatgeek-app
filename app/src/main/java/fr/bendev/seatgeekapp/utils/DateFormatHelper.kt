@@ -12,7 +12,7 @@ object DateFormatHelper {
     private fun formatDate(context: Context, date: Date, @StringRes withFormat: Int): String =
         SimpleDateFormat(context.getString(withFormat), Locale.getDefault()).format(date)
 
-    fun formatFullDate(context: Context, date: Date): String =
-        formatDate(context = context, date = date, withFormat = R.string.date_format_day_month_year)
+    fun formatFullDateWithTime(context: Context, date: Date): String =
+        formatDate(context = context, date = date, withFormat = R.string.date_format_day_month_year_time)
 
 }
