@@ -15,4 +15,9 @@ interface EventsLocalDataSource {
      */
     fun loadEvents(): Flow<List<Event>>
 
+    /**
+     * Return a flow of event detail for a given id
+     */
+    fun loadEvent(id: Long): Flow<Event?>
+
 }

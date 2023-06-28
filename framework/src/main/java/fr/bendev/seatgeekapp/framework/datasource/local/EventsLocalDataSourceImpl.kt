@@ -23,4 +23,7 @@ class EventsLocalDataSourceImpl : EventsLocalDataSource {
         it.entries.flatMap { entry -> entry.value }
     }
 
+    override fun loadEvent(id: Long): Flow<Event?> = loadEvents().map {
+        it.find { event -> event.id == id }
+    }
 }
