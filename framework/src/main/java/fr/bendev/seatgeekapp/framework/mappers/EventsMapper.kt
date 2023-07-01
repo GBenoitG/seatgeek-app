@@ -16,7 +16,8 @@ fun ApiEvent.fromAPItoDomain(): Event = Event(
     date = date,
     endDate = endDate,
     location = venue.fromAPItoDomain(),
-    stats = stats.fromAPItoDomain()
+    stats = stats.fromAPItoDomain(),
+    imageUrl = performers.firstOrNull()?.image
 )
 
 fun List<ApiEvent>.fromAPItoDomain(): List<Event> = this.map { it.fromAPItoDomain() }

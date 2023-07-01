@@ -12,6 +12,7 @@ ext {
             lifecycle            : "2.6.1",
             dependencyChecker    : "0.46.0",
             room                 : "2.5.1",
+            imageLoader          : "2.4.0",
 
             // Compose
             composeBom           : "2023.04.01",
@@ -72,5 +73,7 @@ ext {
     ]
 
     dependencyChecker = "com.github.ben-manes:gradle-versions-plugin:${versions.dependencyChecker}"
+
+    imageLoader = "io.coil-kt:coil-compose:${versions.imageLoader}"
 
 }

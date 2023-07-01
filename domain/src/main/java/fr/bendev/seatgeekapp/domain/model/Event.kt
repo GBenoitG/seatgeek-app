@@ -8,6 +8,6 @@ data class Event(
     val date: Date,
     val endDate: Date?,
     val location: Location,
-    val stats: Stats
-
+    val stats: Stats,
+    val imageUrl: String?
 )

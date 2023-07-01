@@ -61,6 +61,9 @@ dependencies {
     implementation lifecycle.viewmodel
     implementation lifecycle.runtimeCompose
 
+    // Image Loader
+    implementation imageLoader
+
     // Compose
     implementation platform(compose.bom)
     implementation compose.runtime
