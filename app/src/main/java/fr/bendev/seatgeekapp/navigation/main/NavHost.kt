@@ -8,6 +8,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import fr.bendev.seatgeekapp.R
+import fr.bendev.seatgeekapp.navigation.navigateSingleTopTo
+import fr.bendev.seatgeekapp.pages.event.EventDetailsScreen
 import fr.bendev.seatgeekapp.pages.events.EventsScreen
 
 @Composable
@@ -21,7 +24,31 @@ fun MainNavHost(
         modifier.background(color = MaterialTheme.colorScheme.background)
     ) {
         composable(route = Events.route) {
-            EventsScreen(title = stringResource(id = Events.pageTitleRes))
+            EventsScreen(
+                title = stringResource(id = Events.pageTitleRes),
+                onEventClick = { id, name ->
+                    navController.navigateSingleTopTo(
+                        EventDetails.buildRouteWithArg(
+                            id.toString(),
+                            name
+                        )
+                    )
+                }
+            )
+        }
+        composable(
+            route = EventDetails.routeWithArgs,
+            arguments = EventDetails.arguments
+        ) { navBackStackEntry ->
+            navBackStackEntry.arguments?.getLong(EventDetails.eventIdArg)?.let {
+                EventDetailsScreen(
+                    id = it,
+                    title = stringResource(id = R.string.event_details_page_title),
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
     }
 }

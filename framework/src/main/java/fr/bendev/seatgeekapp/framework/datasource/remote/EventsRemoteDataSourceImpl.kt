@@ -14,4 +14,9 @@ class EventsRemoteDataSourceImpl(
         getResult({ Pair(page, it?.events?.fromAPItoDomain() ?: emptyList()) }) {
             eventsService.getEventsPage(page)
         }
+
+    override suspend fun getEvent(id: Long): RemoteResult<Event> =
+        getResult({ it?.fromAPItoDomain() }) {
+            eventsService.getEventById(id)
+        }
 }

@@ -1,5 +1,6 @@
 package fr.bendev.seatgeekapp.pages.events
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import fr.bendev.seatgeekapp.R
+import fr.bendev.seatgeekapp.components.PriceComponent
 import fr.bendev.seatgeekapp.theme.SeatGeekTheme
 import fr.bendev.seatgeekapp.utils.DateFormatHelper
 import java.util.Date
@@ -29,6 +31,7 @@ fun EventRow(
     price: Float?,
     country: String,
     city: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -41,6 +44,9 @@ fun EventRow(
         Column(
             Modifier
                 .fillMaxWidth()
+                .clickable {
+                    onClick()
+                }
                 .padding(dimensionResource(id = R.dimen.size_medium))
         ) {
             Text(text = name, style = MaterialTheme.typography.titleMedium)
@@ -52,13 +58,7 @@ fun EventRow(
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.weight(1f)
                 )
-                val priceString = price?.let {
-                    stringResource(id = R.string.common_amount_money, it)
-                } ?: stringResource(id = R.string.common_amount_free)
-                Text(
-                    text = priceString,
-                    style = MaterialTheme.typography.headlineSmall
-                )
+                PriceComponent(price = price)
             }
         }
     }
@@ -68,6 +68,12 @@ fun EventRow(
 @Composable
 private fun DefaultPreview() {
     SeatGeekTheme {
-        EventRow(name = "Event", date = Date(), price = 12.3f, country = "France", city = "Lyon")
+        EventRow(
+            name = "Event",
+            date = Date(),
+            price = 12.3f,
+            country = "France",
+            city = "Lyon",
+            {})
     }
 }

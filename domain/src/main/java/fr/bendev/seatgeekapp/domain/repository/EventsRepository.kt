@@ -11,4 +11,9 @@ interface EventsRepository {
      */
     fun getEvents(page: Int = 1): Flow<ViewResult<List<Event>>>
 
+    /**
+     * Get event data for a given id
+     */
+    fun getEvent(id: Long): Flow<ViewResult<Event?>>
+
 }

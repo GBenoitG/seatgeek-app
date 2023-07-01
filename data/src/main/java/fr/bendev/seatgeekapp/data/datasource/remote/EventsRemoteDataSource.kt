@@ -10,4 +10,6 @@ interface EventsRemoteDataSource {
      */
     suspend fun getEvents(page: Int): RemoteResult<Pair<Int, List<Event>>>
 
+    suspend fun getEvent(id: Long): RemoteResult<Event>
+
 }

@@ -15,4 +15,7 @@ object DateFormatHelper {
     fun formatFullDateWithTime(context: Context, date: Date): String =
         formatDate(context = context, date = date, withFormat = R.string.date_format_day_month_year_time)
 
+    fun formatDateEventDetail(context: Context, date: Date): String =
+        formatDate(context = context, date = date, withFormat = R.string.date_format_event_detail)
+
 }

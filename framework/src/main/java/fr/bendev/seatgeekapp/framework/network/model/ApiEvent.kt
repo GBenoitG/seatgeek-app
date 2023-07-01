@@ -15,5 +15,7 @@ data class ApiEvent(
     @SerializedName("venue")
     val venue: ApiVenue,
     @SerializedName("stats")
-    val stats: ApiStats
+    val stats: ApiStats,
+    @SerializedName("performers")
+    val performers: List<ApiPerformer>,
 )
