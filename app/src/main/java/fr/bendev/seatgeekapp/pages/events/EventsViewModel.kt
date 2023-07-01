@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import fr.bendev.seatgeekapp.base.BaseViewModel
 import fr.bendev.seatgeekapp.domain.repository.EventsRepository
 import fr.bendev.seatgeekapp.framework.di.Injector
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class EventsViewModel(
     eventsRepository: EventsRepository = Injector.eventsRepository
 ) : BaseViewModel() {
@@ -21,7 +22,6 @@ class EventsViewModel(
 
     private val _pageInfo = MutableStateFlow(PageInfo())
 
-    @OptIn(FlowPreview::class)
     private val eventsFlow = _pageInfo.flatMapMerge { pageInfo ->
         eventsRepository.getEvents(pageInfo.currentPage)
     }

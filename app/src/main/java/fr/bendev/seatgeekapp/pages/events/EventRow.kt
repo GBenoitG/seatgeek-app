@@ -19,6 +19,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import fr.bendev.seatgeekapp.R
+import fr.bendev.seatgeekapp.components.PriceComponent
 import fr.bendev.seatgeekapp.theme.SeatGeekTheme
 import fr.bendev.seatgeekapp.utils.DateFormatHelper
 import java.util.Date
@@ -57,13 +58,7 @@ fun EventRow(
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.weight(1f)
                 )
-                val priceString = price?.let {
-                    stringResource(id = R.string.common_amount_money, it)
-                } ?: stringResource(id = R.string.common_amount_free)
-                Text(
-                    text = priceString,
-                    style = MaterialTheme.typography.headlineSmall
-                )
+                PriceComponent(price = price)
             }
         }
     }

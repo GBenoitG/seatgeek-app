@@ -41,9 +41,13 @@ fun MainNavHost(
             arguments = EventDetails.arguments
         ) { navBackStackEntry ->
             navBackStackEntry.arguments?.getLong(EventDetails.eventIdArg)?.let {
-                val name = navBackStackEntry.arguments?.getString(EventDetails.eventNameArg)
-                    ?: stringResource(id = R.string.event_details_page_title)
-                EventDetailsScreen(id = it, name = name)
+                EventDetailsScreen(
+                    id = it,
+                    title = stringResource(id = R.string.event_details_page_title),
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }
