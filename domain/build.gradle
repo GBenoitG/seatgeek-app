@@ -20,4 +20,6 @@ dependencies {
     api kotlin.core
     api kotlin.coroutines
 
+    testApi test.junit
+
 }

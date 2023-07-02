@@ -31,6 +31,6 @@ enum class ErrorType(vararg val code: Int) {
     }
 
     override fun toString(): String {
-        return "ErrorType($name=(code: $code))"
+        return "ErrorType($name=(code: ${code.joinToString(", ")}))"
     }
 }
