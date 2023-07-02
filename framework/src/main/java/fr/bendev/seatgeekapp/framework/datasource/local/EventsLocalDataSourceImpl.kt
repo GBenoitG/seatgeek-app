@@ -9,19 +9,25 @@ import kotlinx.coroutines.flow.update
 
 class EventsLocalDataSourceImpl : EventsLocalDataSource {
 
-    private val eventsPage = MutableStateFlow<Map<Int, List<Event>>>(hashMapOf())
+    private val eventsPage = MutableStateFlow<List<Event>>(emptyList())
 
-    override fun savePage(page: Int, events: List<Event>) {
+    override fun saveEvents(events: List<Event>) {
         eventsPage.update {
-            val currentMap = it.toMutableMap()
-            currentMap[page] = events
-            currentMap
+            val currentList = it.toMutableList()
+            currentList.addAll(events)
+            currentList.distinctBy { event -> event.id }
         }
     }
 
-    override fun loadEvents(): Flow<List<Event>> = eventsPage.map {
-        it.entries.flatMap { entry -> entry.value }
+    override fun saveEvent(event: Event) {
+        eventsPage.update {
+            val currentList = it.toMutableList()
+            currentList.add(event)
+            currentList.distinctBy { event -> event.id }
+        }
     }
+
+    override fun loadEvents(): Flow<List<Event>> = eventsPage
 
     override fun loadEvent(id: Long): Flow<Event?> = loadEvents().map {
         it.find { event -> event.id == id }

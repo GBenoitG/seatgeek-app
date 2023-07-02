@@ -8,24 +8,27 @@ import java.util.Date
 private const val DATE_TIMESTAMP = 1683151200000
 
 object FakeEvents {
-    fun get3Events() = listOf(
-        Event(
-            1L,
-            "title1",
-            Date(DATE_TIMESTAMP),
+
+    val event1 = Event(
+        1L,
+        "title1",
+        Date(DATE_TIMESTAMP),
+        null,
+        Location(
+            "1 rue de la république",
+            "France",
+            "Lyon"
+        ),
+        Stats(
             null,
-            Location(
-                "1 rue de la république",
-                "France",
-                "Lyon"
-            ),
-            Stats(
-                null,
-                null,
-                null
-            ),
+            null,
             null
         ),
+        null
+    )
+
+    fun get3Events() = listOf(
+        event1,
         Event(
             2L,
             "title2",

@@ -69,12 +69,54 @@ class EventsRepositoryTest {
     fun `GIVEN a null list with saved data, WHEN get all events, THEN success`() =
         runTest(UnconfinedTestDispatcher()) {
             // Prepare
-            fakeLocalDataSource.eventsPage.value = mapOf(Pair(1, FakeEvents.get3Events()))
+            fakeLocalDataSource.eventsPage.value = FakeEvents.get3Events()
 
             // Test
             val eventsFlow = repository.getEvents()
 
             // assert
             assertEquals(ViewResult.Success(FakeEvents.get3Events()), eventsFlow.first())
+        }
+
+    @Test
+    fun `GIVEN a list of 3 events and no saved data, WHEN get an event id 1, THEN loading and success`() =
+        runTest(UnconfinedTestDispatcher()) {
+            // Prepare
+            fakeRemoteDataSource.fakeApiEventsList = FakeEvents.get3Events()
+
+            // Test
+            val eventsFlow = repository.getEvent(1)
+
+            // assert
+            assertEquals(ViewResult.Loading, eventsFlow.first())
+            assertEquals(ViewResult.Success(FakeEvents.event1), eventsFlow.first())
+        }
+
+    @Test
+    fun `GIVEN a list of 3 events and no saved data, WHEN get an event with bad id, THEN loading and error`() =
+        runTest(UnconfinedTestDispatcher()) {
+            // Prepare
+            fakeRemoteDataSource.fakeApiEventsList = FakeEvents.get3Events()
+
+            // Test
+            val eventsFlow = repository.getEvent(-1)
+
+            // assert
+            assertEquals(ViewResult.Loading, eventsFlow.first())
+            assertEquals(ViewResult.Error(ErrorType.NOT_FOUND), eventsFlow.drop(1).first())
+        }
+
+    @Test
+    fun `GIVEN a null list with saved data, WHEN get an event with bad id, THEN success`() =
+        runTest(UnconfinedTestDispatcher()) {
+            // Prepare
+            fakeRemoteDataSource.fakeApiEventsList = null
+            fakeLocalDataSource.eventsPage.value = FakeEvents.get3Events()
+
+            // Test
+            val eventsFlow = repository.getEvent(1)
+
+            // assert
+            assertEquals(ViewResult.Success(FakeEvents.event1), eventsFlow.first())
         }
 }

@@ -10,8 +10,8 @@ class EventsRemoteDataSourceImpl(
     private val eventsService: EventsService
 ) : BaseRemoteDataSource(), EventsRemoteDataSource {
 
-    override suspend fun getEvents(page: Int): RemoteResult<Pair<Int, List<Event>>> =
-        getResult({ Pair(page, it?.events?.fromAPItoDomain() ?: emptyList()) }) {
+    override suspend fun getEvents(page: Int): RemoteResult<List<Event>> =
+        getResult({ it?.events?.fromAPItoDomain() ?: emptyList() }) {
             eventsService.getEventsPage(page)
         }
 

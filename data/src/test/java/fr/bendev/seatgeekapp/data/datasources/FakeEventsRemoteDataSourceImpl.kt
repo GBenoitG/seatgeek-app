@@ -9,14 +9,17 @@ class FakeEventsRemoteDataSourceImpl : EventsRemoteDataSource {
 
     var fakeApiEventsList: List<Event>? = null
 
-    override suspend fun getEvents(page: Int): RemoteResult<Pair<Int, List<Event>>> {
+    override suspend fun getEvents(page: Int): RemoteResult<List<Event>> {
         val result = fakeApiEventsList?.let {
-            RemoteResult.Success(Pair(1, it))
+            RemoteResult.Success(it)
         } ?: RemoteResult.Error(ErrorType.NOT_FOUND)
         return result
     }
 
     override suspend fun getEvent(id: Long): RemoteResult<Event> {
-        TODO("Not yet implemented")
+        val result = fakeApiEventsList?.find { it.id == id }?.let {
+            RemoteResult.Success(it)
+        } ?: RemoteResult.Error(ErrorType.NOT_FOUND)
+        return result
     }
 }

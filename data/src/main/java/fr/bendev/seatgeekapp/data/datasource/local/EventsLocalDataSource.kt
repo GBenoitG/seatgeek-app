@@ -6,9 +6,14 @@ import kotlinx.coroutines.flow.Flow
 interface EventsLocalDataSource {
 
     /**
-     * Save a page index and its content into local/cache storage
+     * Save a list of events into local/cache storage
      */
-    fun savePage(page: Int, events: List<Event>)
+    fun saveEvents(events: List<Event>)
+
+    /**
+     * Save an event into local/cache storage
+     */
+    fun saveEvent(event: Event)
 
     /**
      * Return a flow of events list get from local/cache storage

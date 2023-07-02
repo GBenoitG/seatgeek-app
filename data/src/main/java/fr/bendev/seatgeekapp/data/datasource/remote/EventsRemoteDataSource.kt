@@ -8,7 +8,7 @@ interface EventsRemoteDataSource {
     /**
      * Get from API a list of events at a certain page, return a Pair of page index and its content
      */
-    suspend fun getEvents(page: Int): RemoteResult<Pair<Int, List<Event>>>
+    suspend fun getEvents(page: Int): RemoteResult<List<Event>>
 
     suspend fun getEvent(id: Long): RemoteResult<Event>
 
