@@ -46,7 +46,6 @@ fun <T, A> performGetOperation(
 
             is RemoteResult.Error -> {
                 emit(ViewResult.Error(result.error))
-                throw PerformOperationException(result.error)
             }
         }
     }
