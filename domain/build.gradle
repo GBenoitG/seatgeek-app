@@ -21,5 +21,6 @@ dependencies {
     api kotlin.coroutines
 
     testApi test.junit
+    testApi test.coroutines
 
 }
