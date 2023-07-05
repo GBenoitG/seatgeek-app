@@ -22,7 +22,7 @@ class EventsRepositoryImpl(
             loadData = { eventsLocalDataSource.loadEvents() },
             shouldShowLoading = { it.isEmpty() },
             networkCall = { eventsRemoteDataSource.getEvents(page) },
-            saveApiData = { it?.let { eventsLocalDataSource.savePage(it.first, it.second) } }
+            saveApiData = { it?.let { eventsLocalDataSource.saveEvents(it) } }
         ).flowOn(dispatcher)
 
     override fun getEvent(id: Long): Flow<ViewResult<Event?>> =
@@ -30,5 +30,6 @@ class EventsRepositoryImpl(
             loadData = { eventsLocalDataSource.loadEvent(id) },
             shouldShowLoading = { it == null },
             networkCall = { eventsRemoteDataSource.getEvent(id) },
+            saveApiData = { it?.let { eventsLocalDataSource.saveEvent(it) }}
         ).flowOn(dispatcher)
 }

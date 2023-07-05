@@ -1,4 +1,4 @@
-package fr.bendev.seatgeekapp.framework.datasource.local
+package fr.bendev.seatgeekapp.data.datasources
 
 import fr.bendev.seatgeekapp.data.datasource.local.EventsLocalDataSource
 import fr.bendev.seatgeekapp.domain.model.Event
@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
-class EventsLocalDataSourceImpl : EventsLocalDataSource {
+class FakeEventsLocalDataSourceImpl : EventsLocalDataSource {
 
-    private val eventsPage = MutableStateFlow<List<Event>>(emptyList())
+    val eventsPage = MutableStateFlow<List<Event>>(emptyList())
 
     override fun saveEvents(events: List<Event>) {
         eventsPage.update {

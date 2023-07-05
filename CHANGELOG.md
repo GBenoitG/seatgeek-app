@@ -4,3 +4,4 @@
 * Init project
 * Create list of events from API
 * Create page for event details
+* Add tests

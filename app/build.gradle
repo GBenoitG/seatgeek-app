@@ -78,5 +78,9 @@ dependencies {
     implementation compose.constraint
     debugImplementation compose.uiTooling
 
+    // Test
+    testApi test.junit
+    androidTestApi test.junitKtx
+
     implementation project(path: ':framework')
 }

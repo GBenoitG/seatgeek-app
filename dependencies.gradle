@@ -20,7 +20,12 @@ ext {
             navigation           : "2.5.3",
             viewModelCompose     : "2.5.1",
             kotlinComposeCompiler: "1.4.6",
-            constraint           : "1.0.1"
+            constraint           : "1.0.1",
+
+            // Test
+            junit                : "4.13.2",
+            junitKtx             : "1.1.5",
+            testCoroutines       : "1.7.2"
     ]
 
     // Kotlin
@@ -51,7 +56,9 @@ ext {
     ]
 
     test = [
-            junit: "junit:junit:4.13.2",
+            junit     : "junit:junit:${versions.junit}",
+            junitKtx  : "androidx.test.ext:junit-ktx:${versions.junitKtx}",
+            coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.testCoroutine"
     ]
 
     compose = [

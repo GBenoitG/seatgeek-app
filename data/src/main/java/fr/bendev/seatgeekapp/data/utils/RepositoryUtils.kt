@@ -26,7 +26,7 @@ fun <T, A> performGetOperation(
     loadData: () -> Flow<T>,
     shouldShowLoading: (T) -> Boolean,
     networkCall: suspend () -> RemoteResult<A>,
-    saveApiData: suspend (A?) -> Unit = {}
+    saveApiData: suspend (A?) -> Unit
 ): Flow<ViewResult<T>> = merge(
     loadData().map {
         if (shouldShowLoading(it)) {
@@ -46,7 +46,6 @@ fun <T, A> performGetOperation(
 
             is RemoteResult.Error -> {
                 emit(ViewResult.Error(result.error))
-                throw PerformOperationException(result.error)
             }
         }
     }
